@@ -1,0 +1,129 @@
+body{
+    font-family: 'Baloo Bhaina 2', cursive;
+}
+.header{
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    top: 0;
+    background-color:#323335f5;
+}
+.nav{
+    position: relative;
+    top: 30px;
+    left: 120px;
+    width: 640px;
+    margin: 0 auto;
+}
+.nav__pesquisa{
+    padding-left: 5px;
+    height: 25px;
+    width: 220px;
+    border: 1px solid whitesmoke;
+    border-radius: 1px;
+}
+.nav__clicavel{
+    font-size: 16px;
+    border-radius: 4px;
+    width: 120px;
+    height: 40px;
+    color: whitesmoke;
+}
+.nav__busca__usuario{
+    border-color: crimson;
+    background-color: brown;
+}
+.main{
+    width: 920px;
+    height: 400px;
+    margin:120px auto 0 auto;
+}
+.section__div__header{
+    margin-left: 0;
+    width: 100%;
+    height: 120px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-around;
+}
+.section__img{
+    width: 120px;
+    height: 120px;
+}
+.section__textos_principais{
+    margin-top: 50px; 
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline; 
+}
+.section__div__bio{
+    float: left;
+    font-size: 18px;
+    height: 100px;
+    width: 48%;
+    line-height: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+.section__div__botoes{
+    height: 100px;
+    width: 40%;
+    margin-top: 20px;
+    margin-right: 25px;
+    float:right;
+}
+.section__botoes{
+    width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    margin-left: 5px;
+    color: white;
+}
+.section__botao__portifolio{
+    background-color: #3B0FE0;
+    border-color: #2806A7;
+}
+.section__botao__starred{
+    background-color: #16141E;
+    border-color: #0D0C12;
+}
+.section__table__titulo{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 80px;    
+}
+.section__table{
+    margin-top: 20px;
+    width: 80%;
+    font-size: 16px;
+    margin-left: 80px;
+    line-height: 20px;
+}
+tr{
+    border-bottom: 2px solid lightgray;
+}
+tr td a{
+    margin-left: 8px;
+    text-decoration: none;
+}
+.erro{
+    border-color: red;
+    background-color: lightcoral;
+}
+.mensagem__erro{
+    color: brown;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 40px;
+}
+::-webkit-input-placeholder{
+    color: black;
+}
+
+.mensagem__naoEncontrado{
+    font-size: 18px;
+    font-weight: bold;
+    color: brown;
+    margin-left: 80px;
+}
