@@ -1,4 +1,5 @@
 var buttonBusca = $('#busca');
+
 buttonBusca.click(function(event){
     event.preventDefault();
     limpaSection();
@@ -19,7 +20,7 @@ buttonBusca.click(function(event){
             criaLista(json);
         });
         
-    }else{
+    } else {
         let erro = criaErro("Preencha o campo corretamente!");
         listaErro(erro);
         $('#pesquisa').addClass('erro ::-webkit-input-placeholder').focus();
@@ -29,7 +30,7 @@ buttonBusca.click(function(event){
 function validaClick(usuario){
     if(usuario==''){
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -40,7 +41,7 @@ function buscaUsuario(usuario){
     }).then(resolve =>{
         if(resolve.ok){
             return resolve;
-        }else{
+        } else {
             return Promise.reject(resolve);
         }
         
@@ -56,6 +57,7 @@ function criaLista(response){
     let div = $('<div>').addClass("section__div__header");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
+
 function listaUsuario(section, usuario, div, img, nome, seguidores){
     let divBio = $('<div>').addClass("section__div__bio");
     let conteudoBio = usuario.bio;
@@ -71,17 +73,4 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     section.append(div);
     section.append(divBio);
     section.append(divBotoes);
-}
-function limpaSection(){
-    let section = $("[data-section]");
-    section.text('');
-}
-
-function criaErro(textoMensagem){
-    let mensagem = $("<p>").text(textoMensagem).addClass("mensagem__erro");
-    return mensagem;
-}
-function listaErro(mensagem){
-    let section = $("[data-section]");
-    section.append(mensagem);
 }
