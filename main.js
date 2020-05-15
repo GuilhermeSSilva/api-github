@@ -1,17 +1,16 @@
-var buttonBusca = $('#busca');
+const buttonBusca = $('#busca');
 
 buttonBusca.click(function(event){
     event.preventDefault();
     limpaSection();
-    let usuario = $('#pesquisa').val();
-    let verifica = validaClick(usuario);
+    const usuario = $('#pesquisa').val();
+    const verifica = validaClick(usuario);
     if(verifica){
         $('#pesquisa').removeClass('erro ::-webkit-input-placeholder');
         buscaUsuario(usuario)
         .catch(function(reject){
             console.log(`Erro:${reject.status}`);
-            let mensagem = criaErro("Usuário não encontrado");
-            listaErro(mensagem);
+            criaErro("Usuário não encontrado");
         })
         .then(function(response){
             return response.json();
@@ -21,8 +20,7 @@ buttonBusca.click(function(event){
         });
         
     } else {
-        let erro = criaErro("Preencha o campo corretamente!");
-        listaErro(erro);
+        criaErro("Preencha o campo corretamente!");
         $('#pesquisa').addClass('erro ::-webkit-input-placeholder').focus();
     }
 });
@@ -49,21 +47,21 @@ function buscaUsuario(usuario){
 }
 
 function criaLista(response){
-    let section = $("[data-section]");
-    let usuario = response;
-    let img = $("<img>").attr("src", usuario.avatar_url).addClass("section__img");
-    let nome = $("<p>").text(usuario.login).addClass("section__textos_principais");
-    let seguidores = $("<p>").text(`Seguidores:${usuario.followers}`).addClass("section__textos_principais");
-    let div = $('<div>').addClass("section__div__header");
+    const section = $("[data-section]");
+    const usuario = response;
+    const img = $("<img>").attr("src", usuario.avatar_url).addClass("section__img");
+    const nome = $("<p>").text(usuario.login).addClass("section__textos_principais");
+    const seguidores = $("<p>").text(`Seguidores:${usuario.followers}`).addClass("section__textos_principais");
+    const div = $('<div>').addClass("section__div__header");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
 
 function listaUsuario(section, usuario, div, img, nome, seguidores){
-    let divBio = $('<div>').addClass("section__div__bio");
-    let conteudoBio = usuario.bio;
-    let divBotoes = $("<div>").addClass("section__div__botoes");
-    let botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}')`).text("Repositórios").addClass("section__botoes section__botao__portifolio");
-    let botaoStarred = $("<button>").attr("onclick",`listaStarred('https://api.github.com/users/${usuario.login}/starred')`).text("Starred").addClass("section__botoes section__botao__starred");
+    const divBio = $('<div>').addClass("section__div__bio");
+    const conteudoBio = usuario.bio;
+    const divBotoes = $("<div>").addClass("section__div__botoes");
+    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}')`).text("Repositórios").addClass("section__botoes section__botao__portifolio");
+    const botaoStarred = $("<button>").attr("onclick",`listaStarred('https://api.github.com/users/${usuario.login}/starred')`).text("Starred").addClass("section__botoes section__botao__starred");
     div.append(img);
     div.append(nome);
     div.append(seguidores);

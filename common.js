@@ -5,10 +5,6 @@ function limpaSection(){
 
 function criaErro(textoMensagem){
     let mensagem = $("<p>").text(textoMensagem).addClass("mensagem__erro");
-    return mensagem;
-}
-
-function listaErro(mensagem){
     let section = $("[data-section]");
     section.append(mensagem);
 }
