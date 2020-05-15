@@ -60,8 +60,8 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     const divBio = $('<div>').addClass("section__div__bio");
     const conteudoBio = usuario.bio;
     const divBotoes = $("<div>").addClass("section__div__botoes");
-    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}')`).text("Repositórios").addClass("section__botoes section__botao__portifolio");
-    const botaoStarred = $("<button>").attr("onclick",`listaStarred('https://api.github.com/users/${usuario.login}/starred')`).text("Starred").addClass("section__botoes section__botao__starred");
+    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("section__botoes section__botao__portifolio");
+    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("section__botoes section__botao__starred");
     div.append(img);
     div.append(nome);
     div.append(seguidores);

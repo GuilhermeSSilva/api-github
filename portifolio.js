@@ -1,10 +1,13 @@
-function listaPortifolio(url){
+function listaPortifolio(url,nome){
     const section = $("[data-section]");
-    limpaDiv($(".portifolio"));
-    limpaDiv($(".starred"));
-    const div = $("<div>").addClass("portifolio");
-    const titulo = $("<h2>").text("Repositórios:").addClass("section__table__titulo");
+    limpaDiv($(".repositorio"));
+    const div = $("<div>").addClass("repositorio");
+    const titulo = $("<h2>").text(`${nome}:`).addClass("section__table__titulo");
     const table = $("<table>").addClass("section__table");
+    buscaPortifolio(url, table, titulo, div, section);
+}
+
+function buscaPortifolio(url,table, titulo, div,section){
     fetch(url)
 
     .then(resolve =>{
