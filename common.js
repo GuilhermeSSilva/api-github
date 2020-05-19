@@ -17,6 +17,7 @@ function semResultado(section, div){
     let mensagem = $("<p>").text("Nenhum resultado encontrado").addClass("mensagem__naoEncontrado");
     div.append(mensagem);
     section.append(div);
+    return;
 }
 
 function listaPortifolio(url,nome){
@@ -28,9 +29,8 @@ function listaPortifolio(url,nome){
     buscaPortifolio(url, table, titulo, div, section);
 }
 
-function buscaPortifolio(url,table, titulo, div,section){
+function buscaPortifolio(url,table, titulo, div, section){
     fetch(url)
-
     .then(resolve =>{
             return resolve.json();
         })
@@ -59,10 +59,13 @@ function buscaPortifolio(url,table, titulo, div,section){
             });
         }
     })
-
-    div.append(titulo);
-    div.append(table);
-    section.append(div);
+    adicionaLoad(section);
+    setTimeout(function(){
+        removeLoad();
+        div.append(titulo);
+        div.append(table);
+        section.append(div);
+     }, 1000);
 }
 
 function criaLista(response){
@@ -98,4 +101,16 @@ function validaClick(usuario){
     } else {
         return true;
     }
+}
+
+function adicionaLoad(section){
+    const loadingDiv=$("<div>").addClass("spinner-border").attr("role","status");
+    const loadingSpan=$("<span>").addClass("sr-only").text("Loading...");
+    loadingDiv.append(loadingSpan);
+    section.append(loadingDiv);
+}
+
+function removeLoad(){
+    console.log($(".spinner-border"));
+    $(".spinner-border").attr("style","display:none");
 }
