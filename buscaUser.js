@@ -8,15 +8,15 @@ buttonBusca.click(function(event){
     if(verifica){
         $('#pesquisa').removeClass('erro ::-webkit-input-placeholder');
         buscaUsuario(usuario)
-        .catch(function(reject){
-            console.log(`Erro:${reject.status}`);
-            criaErro("Usuário não encontrado");
-        })
         .then(function(response){
             return response.json();
         })
         .then(json =>{
             criaLista(json);
+        })
+        .catch(function(reject){
+            console.log(`Erro:${reject.status}`);
+            criaErro("Usuário não encontrado");
         });
         
     } else {

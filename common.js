@@ -30,6 +30,9 @@ function listaPortifolio(url,nome){
 }
 
 function buscaPortifolio(url,table, titulo, div, section){
+    div.append(titulo);
+    section.append(div);
+    adicionaLoad(section,div);
     fetch(url)
     .then(resolve =>{
             return resolve.json();
@@ -46,7 +49,9 @@ function buscaPortifolio(url,table, titulo, div, section){
     .then(json =>{
         if(json.length==0){
             semResultado(section, div);
+            removeLoad();
         } else {
+            removeLoad();
             json.forEach(element => {
                 const linkGit = element.git_url.substr(6);
                 const linkFuncional = `https://www.${linkGit}`;
@@ -59,13 +64,8 @@ function buscaPortifolio(url,table, titulo, div, section){
             });
         }
     })
-    adicionaLoad(section);
-    setTimeout(function(){
-        removeLoad();
-        div.append(titulo);
         div.append(table);
         section.append(div);
-     }, 1000);
 }
 
 function criaLista(response){
@@ -103,14 +103,12 @@ function validaClick(usuario){
     }
 }
 
-function adicionaLoad(section){
-    const loadingDiv=$("<div>").addClass("spinner-border").attr("role","status");
-    const loadingSpan=$("<span>").addClass("sr-only").text("Loading...");
-    loadingDiv.append(loadingSpan);
-    section.append(loadingDiv);
+function adicionaLoad(section,div){
+    const loadingIMG=$("<img>").attr("src","200.gif").addClass("load");
+    div.append(loadingIMG);
+    section.append(div);
 }
 
 function removeLoad(){
-    console.log($(".spinner-border"));
-    $(".spinner-border").attr("style","display:none");
+    $(".load").remove();
 }
