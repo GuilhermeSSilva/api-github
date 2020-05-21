@@ -80,7 +80,7 @@ function criaLista(response){
     const img = $("<img>").attr("src", usuario.avatar_url).addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
     const nome = $("<p>").text(usuario.login).addClass("section__textos_principais");
     const seguidores = $("<p>").text(`Seguidores:${usuario.followers}`).addClass("section__textos_principais");
-    const div = $('<div>').addClass("section__div__header");
+    const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
 
