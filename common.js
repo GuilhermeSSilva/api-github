@@ -77,7 +77,7 @@ function buscaPortifolio(url,table, titulo, div, section){
 function criaLista(response){
     const section = $("[data-section]");
     const usuario = response;
-    const img = $("<img>").attr("src", usuario.avatar_url).addClass("section__img");
+    const img = $("<img>").attr("src", usuario.avatar_url).addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
     const nome = $("<p>").text(usuario.login).addClass("section__textos_principais");
     const seguidores = $("<p>").text(`Seguidores:${usuario.followers}`).addClass("section__textos_principais");
     const div = $('<div>').addClass("section__div__header");

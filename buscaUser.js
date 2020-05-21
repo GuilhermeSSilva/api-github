@@ -6,7 +6,7 @@ buttonBusca.click(function(event){
     const usuario = $('#pesquisa').val();
     const verifica = validaClick(usuario);
     if(verifica){
-        $('#pesquisa').removeClass('erro ::-webkit-input-placeholder');
+        $('#pesquisa').removeClass('p-3 mb-2 bg-danger text-white');
         buscaUsuario(usuario)
         .then(function(response){
             return response.json();
@@ -21,7 +21,7 @@ buttonBusca.click(function(event){
         
     } else {
         criaErro("Preencha o campo corretamente!");
-        $('#pesquisa').addClass('erro ::-webkit-input-placeholder').focus();
+        $('#pesquisa').addClass('p-3 mb-2 bg-danger text-white').focus();
     }
 });
 
