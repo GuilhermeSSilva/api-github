@@ -25,7 +25,7 @@ function listaPortifolio(url,nome){
     limpaDiv($(".repositorio"));
     const div = $("<div>").addClass("repositorio");
     const titulo = $("<h2>").text(`${nome}:`).addClass("section__table__titulo");
-    const table = $("<table>").addClass("section__table");
+    const table = $("<table>").addClass("table table-striped table-dark");
     buscaPortifolio(url, table, titulo, div, section);
 }
 
@@ -51,17 +51,23 @@ function buscaPortifolio(url,table, titulo, div, section){
             semResultado(section, div);
             removeLoad();
         } else {
-            removeLoad();
+            const tbody=$("<tbody>");
+            let i=1;
             json.forEach(element => {
                 const linkGit = element.git_url.substr(6);
                 const linkFuncional = `https://www.${linkGit}`;
-                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`);
                 const tr = $("<tr>");
-                const td = $("<td>");
+                const th=$("<th>").text(i).attr("scope","row");
+                const td = $("<td>")
+                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`);
                 td.append(link);
+                tr.append(th);
                 tr.append(td);
-                table.append(tr);
+                tbody.append(tr);
+                i++;
             });
+            table.append(tbody);
+            removeLoad();
         }
     })
         div.append(table);
@@ -82,8 +88,8 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     const divBio = $('<div>').addClass("section__div__bio");
     const conteudoBio = usuario.bio;
     const divBotoes = $("<div>").addClass("section__div__botoes");
-    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("section__botoes section__botao__portifolio");
-    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("section__botoes section__botao__starred");
+    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
+    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
     div.append(img);
     div.append(nome);
     div.append(seguidores);
