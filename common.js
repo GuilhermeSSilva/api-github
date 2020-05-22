@@ -77,9 +77,9 @@ function buscaPortifolio(url,table, titulo, div, section){
 function criaLista(response){
     const section = $("[data-section]");
     const usuario = response;
-    const img = $("<img>").attr("src", usuario.avatar_url).addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
-    const nome = $("<p>").text(usuario.login).addClass("section__textos_principais");
-    const seguidores = $("<p>").text(`Seguidores:${usuario.followers}`).addClass("section__textos_principais");
+    const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
+    const nome = $("<u>").text(usuario.login).addClass("font-weight-bold");
+    const seguidores = $("<u>").text(`Seguidores:${usuario.followers}`).addClass("font-weight-bold");
     const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
