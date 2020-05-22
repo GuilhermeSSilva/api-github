@@ -4,7 +4,7 @@ function limpaSection(){
 }
 
 function criaErro(textoMensagem){
-    let mensagem = $("<p>").text(textoMensagem).addClass("mensagem__erro");
+    let mensagem = $("<p>").text(textoMensagem).addClass("text-center text-danger font-weight-bold");
     let section = $("[data-section]");
     section.append(mensagem);
 }
@@ -78,16 +78,16 @@ function criaLista(response){
     const section = $("[data-section]");
     const usuario = response;
     const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
-    const nome = $("<u>").text(usuario.login).addClass("font-weight-bold");
+    const nome = $("<u>").text(usuario.login).addClass("font-weight-bold align-middle");
     const seguidores = $("<u>").text(`Seguidores:${usuario.followers}`).addClass("font-weight-bold");
     const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
 
 function listaUsuario(section, usuario, div, img, nome, seguidores){
-    const divBio = $('<div>').addClass("section__div__bio");
+    const divBio = $('<div>').addClass("text-center");
     const conteudoBio = usuario.bio;
-    const divBotoes = $("<div>").addClass("section__div__botoes");
+    const divBotoes = $("<div>").addClass("text-center");
     const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
     const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
     div.append(img);
