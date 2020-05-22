@@ -11,12 +11,11 @@ buttonBusca.click(function(event){
         .then(function(response){
             return response.json();
         })
+        .catch(function(reject){
+            listaPortifolio(`https://api.github.com/search/repositories?q=${usuario}`,"Repositórios");
+        })
         .then(json =>{
             criaLista(json);
-        })
-        .catch(function(reject){
-            console.log(`Erro:${reject.status}`);
-            criaErro("Usuário não encontrado");
         });
         
     } else {

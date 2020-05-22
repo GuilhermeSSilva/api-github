@@ -42,7 +42,7 @@ function listaPortifolio(url,nome){
     const section = $("[data-section]");
     limpaDiv($(".repositorio"));
     const div = $("<div>").addClass("repositorio");
-    const titulo = $("<h2>").text(`${nome}:`).addClass("section__table__titulo");
+    const titulo = $("<h2>").text(`${nome}:`);
     const table = $("<table>").addClass("table table-striped table-dark");
     buscaPortifolio(url, table, titulo, div, section);
 }
@@ -65,10 +65,14 @@ function buscaPortifolio(url,table, titulo, div, section){
     })
 
     .then(json =>{
+        console.log(json);
         if(json.length==0){
             semResultado(section, div);
             removeLoad();
         } else {
+            if(json.items!=undefined){
+                json=json.items;
+            }
             const tbody=$("<tbody>");
             let i=1;
             json.forEach(element => {
