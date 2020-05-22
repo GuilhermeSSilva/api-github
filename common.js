@@ -65,14 +65,13 @@ function buscaPortifolio(url,table, titulo, div, section){
     })
 
     .then(json =>{
-        console.log(json);
+        if(json.items!=undefined){
+            json=json.items;
+        }
         if(json.length==0){
             semResultado(section, div);
             removeLoad();
         } else {
-            if(json.items!=undefined){
-                json=json.items;
-            }
             const tbody=$("<tbody>");
             let i=1;
             json.forEach(element => {
@@ -103,7 +102,7 @@ function criaErro(textoMensagem){
 }
 
 function semResultado(section, div){
-    let mensagem = $("<p>").text("Nenhum resultado encontrado").addClass("mensagem__naoEncontrado");
+    let mensagem = $("<p>").text("Erro 404 Nenhum resultado encontrado").addClass("text-danger font-weight-bold");
     div.append(mensagem);
     section.append(div);
     return;
