@@ -3,21 +3,39 @@ function limpaSection(){
     section.text('');
 }
 
-function criaErro(textoMensagem){
-    let mensagem = $("<p>").text(textoMensagem).addClass("text-center text-danger font-weight-bold");
-    let section = $("[data-section]");
-    section.append(mensagem);
+function validaClick(usuario){
+    if(usuario==''){
+        return false;
+    } else {
+        return true;
+    }
 }
 
-function limpaDiv(div){
-    div.remove();    
+function criaLista(response){
+    const section = $("[data-section]");
+    const usuario = response;
+    const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
+    const nome = $("<u>").text(usuario.login).addClass("font-weight-bold align-middle");
+    const seguidores = $("<u>").text(`Seguidores:${usuario.followers}`).addClass("font-weight-bold");
+    const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around flex-wrap");
+    listaUsuario(section,usuario,div,img,nome,seguidores);
 }
 
-function semResultado(section, div){
-    let mensagem = $("<p>").text("Nenhum resultado encontrado").addClass("mensagem__naoEncontrado");
-    div.append(mensagem);
+function listaUsuario(section, usuario, div, img, nome, seguidores){
+    const divBio = $('<div>').addClass("text-center");
+    const conteudoBio = usuario.bio;
+    const divBotoes = $("<div>").addClass("text-center");
+    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
+    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
+    div.append(img);
+    div.append(nome);
+    div.append(seguidores);
+    divBio.append(conteudoBio);
+    divBotoes.append(botaoRepos);
+    divBotoes.append(botaoStarred);
     section.append(div);
-    return;
+    section.append(divBio);
+    section.append(divBotoes);
 }
 
 function listaPortifolio(url,nome){
@@ -74,39 +92,21 @@ function buscaPortifolio(url,table, titulo, div, section){
         section.append(div);
 }
 
-function criaLista(response){
-    const section = $("[data-section]");
-    const usuario = response;
-    const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
-    const nome = $("<u>").text(usuario.login).addClass("font-weight-bold align-middle");
-    const seguidores = $("<u>").text(`Seguidores:${usuario.followers}`).addClass("font-weight-bold");
-    const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around flex-wrap");
-    listaUsuario(section,usuario,div,img,nome,seguidores);
+function criaErro(textoMensagem){
+    let mensagem = $("<p>").text(textoMensagem).addClass("text-center text-danger font-weight-bold");
+    let section = $("[data-section]");
+    section.append(mensagem);
 }
 
-function listaUsuario(section, usuario, div, img, nome, seguidores){
-    const divBio = $('<div>').addClass("text-center");
-    const conteudoBio = usuario.bio;
-    const divBotoes = $("<div>").addClass("text-center");
-    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
-    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
-    div.append(img);
-    div.append(nome);
-    div.append(seguidores);
-    divBio.append(conteudoBio);
-    divBotoes.append(botaoRepos);
-    divBotoes.append(botaoStarred);
+function semResultado(section, div){
+    let mensagem = $("<p>").text("Nenhum resultado encontrado").addClass("mensagem__naoEncontrado");
+    div.append(mensagem);
     section.append(div);
-    section.append(divBio);
-    section.append(divBotoes);
+    return;
 }
 
-function validaClick(usuario){
-    if(usuario==''){
-        return false;
-    } else {
-        return true;
-    }
+function limpaDiv(div){
+    div.remove();    
 }
 
 function adicionaLoad(section,div){
