@@ -16,7 +16,7 @@ buttonBusca.click(function(event){
         })
         .catch(function(reject){
             listaPortifolio(`https://api.github.com/search/repositories?q=${usuario}`,"Repositórios");
-        })
+        });
         
     } else {
         criaErro("Preencha o campo corretamente!");

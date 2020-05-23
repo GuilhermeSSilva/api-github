@@ -17,7 +17,7 @@ function criaLista(response){
     const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
     const nome = $("<u>").text(usuario.login).addClass("font-weight-bold align-middle");
     const seguidores = $("<u>").text(`Seguidores:${usuario.followers}`).addClass("font-weight-bold");
-    const div = $('<div>').addClass("d-flex justify-content-center justify-content-sm-around flex-wrap");
+    const div = $('<div>').addClass("mx-auto d-flex justify-content-center justify-content-sm-around flex-wrap");
     listaUsuario(section,usuario,div,img,nome,seguidores);
 }
 
@@ -43,12 +43,16 @@ function listaPortifolio(url,nome){
     limpaDiv($(".repositorio"));
     const div = $("<div>").addClass("repositorio");
     const titulo = $("<h2>").text(`${nome}:`);
+    const label= $("<label>").attr("for","filtraRepositorio").text("Filtrar Repositório:");
+    const inputText= $("<input>").attr("id","filtraRepositorio").attr("type","text").attr("onfocus","filtrarRepositorio()");
     const table = $("<table>").addClass("table table-striped table-dark");
-    buscaPortifolio(url, table, titulo, div, section);
+    buscaPortifolio(url, section, div, titulo, label, inputText, table);
 }
 
-function buscaPortifolio(url,table, titulo, div, section){
+function buscaPortifolio(url, section, div, titulo, label,inputText, table){
     div.append(titulo);
+    div.append(label);
+    div.append(inputText);
     section.append(div);
     adicionaLoad(section,div);
     fetch(url)
@@ -80,7 +84,7 @@ function buscaPortifolio(url,table, titulo, div, section){
                 const tr = $("<tr>");
                 const th=$("<th>").text(i).attr("scope","row");
                 const td = $("<td>")
-                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`);
+                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.name}`).addClass("nome");
                 td.append(link);
                 tr.append(th);
                 tr.append(td);
