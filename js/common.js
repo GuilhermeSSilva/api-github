@@ -117,7 +117,7 @@ function limpaDiv(div){
 }
 
 function adicionaLoad(section,div){
-    const loadingIMG=$("<img>").attr("src","200.gif").addClass("load");
+    const loadingIMG=$("<img>").attr("src","../src/img/200.gif").addClass("load");
     div.append(loadingIMG);
     section.append(div);
 }
