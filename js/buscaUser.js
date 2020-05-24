@@ -15,7 +15,7 @@ buttonBusca.click(function(event){
             criaLista(json);
         })
         .catch(function(reject){
-            listaPortifolio(`https://api.github.com/search/repositories?q=${usuario}`,"Repositórios");
+            buscaPortifolio(`https://api.github.com/search/repositories?q=${usuario}`,"Repositórios");
         });
         
     } else {

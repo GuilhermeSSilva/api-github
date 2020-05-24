@@ -12,6 +12,7 @@ function validaClick(usuario){
 }
 
 function criaLista(response){
+    salvandoLocalStorage(response);
     const section = $("[data-section]");
     const usuario = response;
     const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
@@ -25,8 +26,8 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     const divBio = $('<div>').addClass("text-center");
     const conteudoBio = usuario.bio;
     const divBotoes = $("<div>").addClass("text-center");
-    const botaoRepos = $("<button>").attr("onclick",`listaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
-    const botaoStarred = $("<button>").attr("onclick",`listaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
+    const botaoRepos = $("<button>").attr("onclick",`buscaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
+    const botaoStarred = $("<button>").attr("onclick",`buscaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
     div.append(img);
     div.append(nome);
     div.append(seguidores);
@@ -38,23 +39,26 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     section.append(divBotoes);
 }
 
-function listaPortifolio(url,nome){
+function listaPortifolio(tbody,nome){
     const section = $("[data-section]");
     limpaDiv($(".repositorio"));
     const div = $("<div>").addClass("repositorio");
-    const titulo = $("<h2>").text(`${nome}:`);
     const label= $("<label>").attr("for","filtraRepositorio").text("Filtrar Repositório:");
     const inputText= $("<input>").attr("id","filtraRepositorio").attr("type","text").attr("onfocus","filtrarRepositorio()");
     const table = $("<table>").addClass("table table-striped table-dark");
-    buscaPortifolio(url, section, div, titulo, label, inputText, table);
-}
-
-function buscaPortifolio(url, section, div, titulo, label,inputText, table){
+    const titulo = $("<h2>").text(`${nome}:`);
     div.append(titulo);
     div.append(label);
     div.append(inputText);
     section.append(div);
-    adicionaLoad(section,div);
+    table.append(tbody);
+    div.append(table);
+    removeLoad();
+    section.append(div);
+}
+
+function buscaPortifolio(url,nome){
+    adicionaLoad();
     fetch(url)
     .then(resolve =>{
             return resolve.json();
@@ -73,8 +77,7 @@ function buscaPortifolio(url, section, div, titulo, label,inputText, table){
             json=json.items;
         }
         if(json.length==0){
-            semResultado(section, div);
-            removeLoad();
+            semResultado();
         } else {
             const tbody=$("<tbody>");
             let i=1;
@@ -84,29 +87,31 @@ function buscaPortifolio(url, section, div, titulo, label,inputText, table){
                 const tr = $("<tr>");
                 const th=$("<th>").text(i).attr("scope","row");
                 const td = $("<td>")
-                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.name}`).addClass("nome");
+                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`).addClass("nome");
                 td.append(link);
                 tr.append(th);
                 tr.append(td);
                 tbody.append(tr);
                 i++;
             });
-            table.append(tbody);
             removeLoad();
+            listaPortifolio(tbody,nome);
         }
     })
-        div.append(table);
-        section.append(div);
 }
 
 function criaErro(textoMensagem){
-    let mensagem = $("<p>").text(textoMensagem).addClass("text-center text-danger font-weight-bold");
-    let section = $("[data-section]");
+    const mensagem = $("<p>").text(textoMensagem).addClass("text-center text-danger font-weight-bold");
+    const section = $("[data-section]");
     section.append(mensagem);
 }
 
-function semResultado(section, div){
-    let mensagem = $("<p>").text("Erro 404 Nenhum resultado encontrado").addClass("text-danger font-weight-bold");
+function semResultado(){
+    const section = $("[data-section]");
+    removeLoad();
+    limpaDiv($(".repositorio"));
+    const div=$("<div>").addClass("repositorio");
+    const mensagem = $("<p>").text("Erro 404 Nenhum resultado encontrado").addClass("text-danger font-weight-bold");
     div.append(mensagem);
     section.append(div);
     return;
@@ -116,7 +121,10 @@ function limpaDiv(div){
     div.remove();    
 }
 
-function adicionaLoad(section,div){
+function adicionaLoad(){
+    const section = $("[data-section]");
+    limpaDiv($(".repositorio"));
+    const div = $("<div>").addClass("repositorio");
     const loadingIMG=$("<img>").attr("src","../src/img/200.gif").addClass("load");
     div.append(loadingIMG);
     section.append(div);
