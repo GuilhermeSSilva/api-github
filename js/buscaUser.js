@@ -8,10 +8,7 @@ buttonBusca.click(function(event){
     if(verifica){
         $('#pesquisa').removeClass('p-3 mb-2 bg-danger text-white');
         buscaUsuario(usuario)
-        .then(function(response){
-            return response.json();
-        })
-        .then(json =>{
+        .then(json=>{
             criaLista(json);
         })
         .catch(function(reject){
@@ -25,14 +22,35 @@ buttonBusca.click(function(event){
 });
 
 function buscaUsuario(usuario){
-    return fetch(`https://api.github.com/users/${usuario}`,{
-        method:'GET'
-    }).then(resolve =>{
-        if(resolve.ok){
-            return resolve;
+    const user=JSON.parse(localStorage.getItem(usuario.toLowerCase()));
+    if(user!=null){
+        if(user.nome.toLowerCase()==usuario.toLowerCase()){
+            return new Promise((resolve,reject) =>{
+                resolve(user);
+                reject(user.nome);
+            });
         } else {
-            return Promise.reject(resolve);
+            return fetch(`https://api.github.com/users/${usuario}`,{
+            method:'GET'
+            }).then(resolve =>{
+                if(resolve.ok){
+                    salvandoLocalStorage(resolve.json());
+                    return resolve.json();
+                } else {
+                    return Promise.reject(resolve);
+                }                 
+            })
         }
-        
-    })
+    } else {
+        return fetch(`https://api.github.com/users/${usuario}`,{
+                method:'GET'
+            }).then(resolve =>{
+                if(resolve.ok){
+                    salvandoLocalStorage(resolve.json());
+                    return resolve.json();
+                } else {
+                    return Promise.reject(resolve);
+                }                 
+            })
+    }
 }

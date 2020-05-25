@@ -21,16 +21,14 @@ async function salvandoLocalStorage(user){
             bio:user.bio,
             repositorio:repositorio,
             starred:starred
-        }
+        };
         const usuarioLS=JSON.stringify(usuario);
-        localStorage.setItem("usuario",usuarioLS);
-        return usuarioLS;
-
+        console.log(user);
+        localStorage.setItem(user.login.toLowerCase(),usuarioLS);
     })
 }
 
 async function buscandoLocalStorage(user){
-    const usuario =await localStorage.getItem("usuario",user);
-    console.log(usuario);
-    return usuario;
+    const usuario =await localStorage.getItem(user.login,user);
+    console.log(JSON.parse(usuario));
 }
