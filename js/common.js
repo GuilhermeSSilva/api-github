@@ -12,7 +12,6 @@ function validaClick(usuario){
 }
 
 function criaLista(response){
-    salvandoLocalStorage(response);
     const section = $("[data-section]");
     const usuario = response;
     const img = $("<img>").attr("src", usuario.avatar_url).attr("style","width:200px;").addClass("img-thumbnail").attr("alt","Imagem do usuário pesquisado");
@@ -39,7 +38,7 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     section.append(divBotoes);
 }
 
-function listaPortifolio(tbody,nome){
+function listaPortifolio(tbody, nome){
     const section = $("[data-section]");
     limpaDiv($(".repositorio"));
     const div = $("<div>").addClass("repositorio");
