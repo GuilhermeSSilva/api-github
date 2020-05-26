@@ -26,8 +26,8 @@ function listaUsuario(section, usuario, div, img, nome, seguidores){
     const divBio = $('<div>').addClass("text-center");
     const conteudoBio = usuario.bio;
     const divBotoes = $("<div>").addClass("text-center");
-    const botaoRepos = $("<button>").attr("onclick",`buscaPortifolioLocalStorage('${nomeUser}','Repositório')`).text("Repositórios").addClass("btn btn-outline-primary");
-    const botaoStarred = $("<button>").attr("onclick",`buscaPortifolioLocalStorage('${nomeUser}','Starred')`).text("Starred").addClass("btn btn-outline-success");
+    const botaoRepos = $("<button>").attr("onclick",`buscaPortifolioSessionStorage('${nomeUser}','Repositório')`).text("Repositórios").addClass("btn btn-outline-primary");
+    const botaoStarred = $("<button>").attr("onclick",`buscaPortifolioSessionStorage('${nomeUser}','Starred')`).text("Starred").addClass("btn btn-outline-success");
     div.append(img);
     div.append(nome);
     div.append(seguidores);
@@ -56,9 +56,9 @@ function listaPortifolio(tbody, nome){
     removeLoad();
     section.append(div);
 }
-function buscaPortifolioLocalStorage(usuario,nome){
+function buscaPortifolioSessionStorage(usuario,nome){
     adicionaLoad();
-    const user=JSON.parse(localStorage.getItem(usuario.toLowerCase()));
+    const user=JSON.parse(sessionStorage.getItem(usuario.toLowerCase()));
     if(nome=="Repositório"){
         if(user.repositorio.length!=0){
             const tbody=$("<tbody>");

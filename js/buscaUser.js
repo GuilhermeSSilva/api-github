@@ -9,9 +9,9 @@ buttonBusca.click(function(event){
         $('#pesquisa').removeClass('p-3 mb-2 bg-danger text-white');
         buscaUsuario(usuario)
         .then(json=>{
-            const teste=localStorage.getItem(json.login.toLowerCase());
+            const teste=sessionStorage.getItem(json.login.toLowerCase());
             if(teste==null){
-                salvandoLocalStorage(json);
+                salvandoSessionStorage(json);
             }
             criaLista(json);
         })
@@ -26,7 +26,7 @@ buttonBusca.click(function(event){
 });
 
 function buscaUsuario(usuario){
-    const user=JSON.parse(localStorage.getItem(usuario.toLowerCase()));
+    const user=JSON.parse(sessionStorage.getItem(usuario.toLowerCase()));
     if(user!=null){
         if(user.login.toLowerCase()==usuario.toLowerCase()){
             return new Promise((resolve,reject) =>{

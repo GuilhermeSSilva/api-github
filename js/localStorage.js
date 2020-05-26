@@ -1,4 +1,4 @@
-async function salvandoLocalStorage(user){
+async function salvandoSessionStorage(user){
     let repositorio;
     await fetch(`https://api.github.com/users/${user.login}/repos`)
     .then(resolve=>{
@@ -23,10 +23,6 @@ async function salvandoLocalStorage(user){
             starred:starred
         };
         const usuarioLS=JSON.stringify(usuario);
-        localStorage.setItem(usuario.login.toLowerCase(),usuarioLS);
+        sessionStorage.setItem(usuario.login.toLowerCase(),usuarioLS);
     })
 }
-
-window.onbeforeunload=function(){
-    localStorage.clear();
-};
