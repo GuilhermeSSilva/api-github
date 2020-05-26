@@ -26,3 +26,7 @@ async function salvandoLocalStorage(user){
         localStorage.setItem(usuario.login.toLowerCase(),usuarioLS);
     })
 }
+
+window.onbeforeunload=function(){
+    localStorage.clear();
+};
