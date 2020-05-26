@@ -9,6 +9,10 @@ buttonBusca.click(function(event){
         $('#pesquisa').removeClass('p-3 mb-2 bg-danger text-white');
         buscaUsuario(usuario)
         .then(json=>{
+            const teste=localStorage.getItem(json.login.toLowerCase());
+            if(teste==null){
+                salvandoLocalStorage(json);
+            }
             criaLista(json);
         })
         .catch(function(reject){
@@ -24,17 +28,18 @@ buttonBusca.click(function(event){
 function buscaUsuario(usuario){
     const user=JSON.parse(localStorage.getItem(usuario.toLowerCase()));
     if(user!=null){
-        if(user.nome.toLowerCase()==usuario.toLowerCase()){
+        if(user.login.toLowerCase()==usuario.toLowerCase()){
             return new Promise((resolve,reject) =>{
                 resolve(user);
-                reject(user.nome);
+                if(user==null){
+                    reject(usuario);
+                }
             });
         } else {
             return fetch(`https://api.github.com/users/${usuario}`,{
             method:'GET'
             }).then(resolve =>{
                 if(resolve.ok){
-                    salvandoLocalStorage(resolve.json());
                     return resolve.json();
                 } else {
                     return Promise.reject(resolve);
@@ -46,7 +51,6 @@ function buscaUsuario(usuario){
                 method:'GET'
             }).then(resolve =>{
                 if(resolve.ok){
-                    salvandoLocalStorage(resolve.json());
                     return resolve.json();
                 } else {
                     return Promise.reject(resolve);

@@ -22,11 +22,12 @@ function criaLista(response){
 }
 
 function listaUsuario(section, usuario, div, img, nome, seguidores){
+    const nomeUser=usuario.login;
     const divBio = $('<div>').addClass("text-center");
     const conteudoBio = usuario.bio;
     const divBotoes = $("<div>").addClass("text-center");
-    const botaoRepos = $("<button>").attr("onclick",`buscaPortifolio('${usuario.repos_url}','Repositórios')`).text("Repositórios").addClass("btn btn-outline-primary");
-    const botaoStarred = $("<button>").attr("onclick",`buscaPortifolio('https://api.github.com/users/${usuario.login}/starred','Starred')`).text("Starred").addClass("btn btn-outline-success");
+    const botaoRepos = $("<button>").attr("onclick",`buscaPortifolioLocalStorage('${nomeUser}','Repositório')`).text("Repositórios").addClass("btn btn-outline-primary");
+    const botaoStarred = $("<button>").attr("onclick",`buscaPortifolioLocalStorage('${nomeUser}','Starred')`).text("Starred").addClass("btn btn-outline-success");
     div.append(img);
     div.append(nome);
     div.append(seguidores);
@@ -55,7 +56,53 @@ function listaPortifolio(tbody, nome){
     removeLoad();
     section.append(div);
 }
-
+function buscaPortifolioLocalStorage(usuario,nome){
+    adicionaLoad();
+    const user=JSON.parse(localStorage.getItem(usuario.toLowerCase()));
+    if(nome=="Repositório"){
+        if(user.repositorio.length!=0){
+            const tbody=$("<tbody>");
+            let i=1;
+            user.repositorio.forEach(element =>{
+                const linkGit = element.git_url.substr(6);
+                const linkFuncional = `https://www.${linkGit}`;
+                const tr = $("<tr>");
+                const th=$("<th>").text(i).attr("scope","row");
+                const td = $("<td>")
+                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`).addClass("nome");
+                td.append(link);
+                tr.append(th);
+                tr.append(td);
+                tbody.append(tr);
+                i++;
+            });
+            listaPortifolio(tbody,nome);
+        }else{
+            semResultado();
+        }
+    }else{
+        if(user.starred.length!=0){
+            const tbody=$("<tbody>");
+            let i=1;
+            user.starred.forEach(element =>{
+                const linkGit = element.git_url.substr(6);
+                const linkFuncional = `https://www.${linkGit}`;
+                const tr = $("<tr>");
+                const th=$("<th>").text(i).attr("scope","row");
+                const td = $("<td>")
+                const link = $("<a>").attr("href",`${linkFuncional}`).attr("target","_blank").text(`${element.full_name}`).addClass("nome");
+                td.append(link);
+                tr.append(th);
+                tr.append(td);
+                tbody.append(tr);
+                i++;
+            });
+            listaPortifolio(tbody,nome);
+        }else{
+            semResultado();
+        }
+    }
+}
 function buscaPortifolio(url,nome){
     adicionaLoad();
     fetch(url)
