@@ -1,0 +1,23 @@
+{
+  "name": "compasso",
+  "version": "2.0.0",
+  "description": "<h1>Api Github</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeSSilva/api-github.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuilhermeSSilva/api-github/issues"
+  },
+  "homepage": "https://github.com/GuilhermeSSilva/api-github#readme",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "uglify-es": "^3.3.9"
+  }
+}
